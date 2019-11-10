@@ -1,0 +1,220 @@
+<div class="ng-tns-c6-0">
+  <div class="inbox-main-sidebar-container sidebar-container">
+    <div class="inbox-main-content sidebar-content">
+      <div class="inbox-secondary-sidebar-container box-shadow-1 sidebar-container">
+        <div class="ng-tns-c6-0 sidebar-content">
+          <div class="inbox-secondary-sidebar-content position-relative" style="min-height: 500px">
+
+
+            <div class="inbox-details rtl-ps-none ng-tns-c6-0 ps ng-star-inserted">
+
+              <div class="">
+
+                <div class="row">
+
+                  <!-- search form -->
+                  <div class="col-md-4">
+                    <div class="form-group">
+                        <input id="email" placeholder="Search Users" [formControl]="searchControl"
+                          class="form-control form-control-rounded" type="email">
+                    </div>
+                  </div>
+
+                  <!-- new user -->
+                  <div class="col-md-2 offset-6">
+                    <button (click)='createEditModalClickFunction("create", createEditModal)' class="btn btn-rounded btn-block btn-primary mb-4">New User</button>
+                  </div>
+
+
+                  <div class="col-md-12">
+                    <div class="card o-hidden">
+                      <ngx-datatable *ngIf="filteredUsersArray?.length" style="box-shadow: none" class="material fullscreen"
+                        [style.height]="60*filteredUsersArray.length+60+'px'" [columnMode]="'force'" [headerHeight]="50"
+                        [footerHeight]="0" [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true" [rows]="filteredUsersArray">
+                        <ngx-datatable-column>
+                          <ng-template ngx-datatable-header-template>
+                            Username
+                          </ng-template>
+                          <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            {{row.userName | uppercase}}
+                          </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column [maxWidth]='300' [width]="120">
+                          <ng-template ngx-datatable-header-template>
+                            <div class="w-100 text-center">
+                                Admin
+                            </div>
+                          </ng-template>
+                          <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            <div class="text-center" [ngClass]="{
+                              'text-success': row.isAdmin,
+                              'text-danger': !row.isAdmin
+                          }">
+                              <i class='icon-regular' [ngClass]="{
+                                'i-Yes': row.isAdmin,
+                                'i-Close': !row.isAdmin
+                              }"></i>
+                            </div>
+                          </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column>
+                          <ng-template ngx-datatable-header-template>
+                            Actions
+                          </ng-template>
+                          <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            <!-- <button class="btn btn-wide btn-outline-secondary mr-3"
+                              [routerLink]="['/invoice/edit', row.id]">View</button> -->
+                              <button class="btn btn-outline-info mr-1" (click)="createEditModalClickFunction('edit', createEditModal, row.id)">
+                                Edit
+                              </button>
+                              <button class="btn btn-outline-danger" (click)="deleteUser(row.id, deleteConfirmModal)">
+                                Delete
+                              </button>
+                          </ng-template>
+                        </ngx-datatable-column>
+                      </ngx-datatable>
+
+                      <!-- no data message -->
+                      <div *ngIf="!filteredUsersArray?.length" class='col-md-12 text-center text-muted my-3' >
+                        No Users To Show
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="inbox-main-sidebar sidebar" appsidebar="inbox-main-sidebar" ng-reflect-id="inbox-main-sidebar"
+      style="left: 0px;">
+      <div class="pt-3 pr-3 pb-3">
+        <i class="sidebar-close i-Close"></i>
+        <button class="btn btn-rounded btn-block btn-primary mb-4">New User</button>
+        <ul class="inbox-main-nav">
+          <li><a (click)="groupOf='admins'"><i class="icon-regular i-Pilot"></i> Admins</a></li>
+          <li><a (click)="groupOf='users'"><i class="icon-regular i-Boy"></i> Users</a></li>
+          <li><a (click)="groupOf='all'"><i class="icon-regular i-Boy"></i> All</a></li>
+        </ul>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+
+
+
+
+
+
+<app-loader [loading]='loading'></app-loader>
+
+<ng-template #deleteConfirmModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">User deletion</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p><strong>Are you sure?</strong></p>
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" autofocus='true' class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+    </div>
+</ng-template>
+
+
+<ng-template #createEditModal let-modal>
+    <form [formGroup]='userForm' (ngSubmit)="modal.close('Save click')">
+
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title"> {{ modalFor == 'create' ? 'Create User' : 'Edit User' }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div class="form-group">
+        <label for="usernameInput">Username</label>
+        <input id="usernameInput" formControlName='userName' type='text' class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="passwordInput">Password</label>
+        <div class="input-group">
+          <input [type]='inputFieldAsPassword ? "password" : "text"' formControlName="password" id="passwordInput" class="form-control">
+          <div class="input-group-append">
+            <button (click)="inputFieldAsPassword = !inputFieldAsPassword" class="btn btn-secondary" type="button">
+              <i class="icon-regular" [ngClass]='inputFieldAsPassword ? "i-Unlock-2" : "i-Lock-2"'></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="form-group mt-3">
+        <label class="switch switch-danger">
+          <span>Make Admin</span>
+          <input type="checkbox" formControlName="isAdmin">
+          <span class="slider"></span>
+      </label>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button"  class="btn btn-outline-dark btn-rounded" autofocus='true' (click)="modal.dismiss('Cancel click')">Cancel</button>
+    <button [disabled]='!userForm.valid' type='submit' class="btn btn-outline-danger btn-rounded">Save</button>
+  </div>
+</form>
+
+</ng-template>
+
+
+<!-- Modal Template for create -->
+<ng-template #modalNewUserTemplate let-newUserModal>
+  <form [formGroup]="userForm">
+    <div class="modal-header">
+      <h5 class="modal-title">New User</h5>
+    </div>
+    <div class="modal-body text-center p-lg">
+      <div class="px-3">
+        <div class="form-group">
+          <input type="text" formControlName="userName" class="form-control" id="inputEmail3" placeholder="Username">
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <input type="{{isPasswordInputShowPassword ? 'text' : 'password'}}" formControlName="password"
+              class="form-control" placeholder="Password" aria-label="Recipient's username"
+              aria-describedby="basic-addon2">
+            <div class="input-group-append">
+              <button class="btn" type="button" (click)="isPasswordInputShowPassword = !isPasswordInputShowPassword">
+                <i class="fa" [ngClass]="isPasswordInputShowPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <p class="pull-left">
+            <span class="mr-right">Make Admin</span>
+            <label class="md-check mr-left">
+              <input type="checkbox" formControlName="isAdmin">
+              <i class="pink"></i>
+            </label>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn dark-white p-x-md" data-dismiss="modal"
+        (click)="newUserModal.close()">Cancel</button>
+      <button type="submit" class="btn p-x-md" data-dismiss="modal" [ngClass]="userForm.valid ? 'warn' : '' "
+        [disabled]="!userForm.valid || formSubmitting" (click)="createUser(); newUserModal.close()">
+        <span *ngIf='!formSubmitting'>Create</span>
+        <i class="fa fa-spinner fa-spin" *ngIf='formSubmitting'></i>
+        <!-- <i class="fa fa-spin fa-spinner"></i> -->
+      </button>
+    </div>
+  </form>
+</ng-template>
