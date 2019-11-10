@@ -8,11 +8,11 @@ var Prefix = require('./prefix');
 // const genericHelpers = require('../helpers/genericHelpers');
 
 // Connection string to the database
-var dbName = 'cdr-db';
-var userName = 'cdrUser';
-var dbPassword = 'X1b350ogcUR2wgs7';
+var dbName = 'cdrdb';
+var userName = 'cdruser';
+var dbPassword = 'x1b350o';
 
-var host = 'localhost';
+var host = '127.0.0.1';
 var dialect = 'mysql';
 
 var settings = {
