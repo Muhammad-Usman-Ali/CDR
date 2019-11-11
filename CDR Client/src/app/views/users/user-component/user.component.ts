@@ -237,7 +237,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
           this.usersArray = this.usersArray.filter(_user => _user.id != _id);
           this.usersArray.unshift(_editedUser);
-          
+
           this.hideLoader();
           // this.resetModal(true);
         },

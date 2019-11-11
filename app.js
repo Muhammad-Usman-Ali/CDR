@@ -15,6 +15,7 @@ var app = express();
 
 app.use(compression()); // Compresses the sent data to the browser
 
+
 // Should be over the routes
 require('./api/models/sequelize');
 

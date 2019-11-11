@@ -10,9 +10,9 @@ var Prefix = require('./prefix');
 // Connection string to the database
 var dbName = 'cdrdb';
 var userName = 'cdruser';
-var dbPassword = 'x1b350o';
+var dbPassword = 'x1b3503sazdf1o';
 
-var host = '127.0.0.1';
+var host = 'localhost';
 var dialect = 'mysql';
 
 var settings = {
@@ -85,7 +85,7 @@ var RateModel = Rate(sequelize, Sequelize);
 // checking db connection
 sequelize.authenticate()
   .then(() => {
-    console.log('Postgre Connected successfully');
+    console.log('Databse Connected successfully');
   }).catch((err) => {
     console.log(err);
   });
