@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var cors = require('cors');
 var genericHelpers = require('./api/helpers/genericHelpers');
-var http = require('http');
+// var http = require('http');
 
 var app = express();
 
@@ -37,7 +37,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // Api listener to fetch the data from the sever and save it.
-genericHelpers.apiListener();
+// genericHelpers.apiListener();
 
 app.use(logger('dev'));
 
