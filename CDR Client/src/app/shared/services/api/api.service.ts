@@ -19,7 +19,9 @@ export class ApiService {
     ) {}
   // constructor(private messageService: MessageService, private auth: AuthService, private basicService: BasicService, private http: HttpClient) {}
 
-  private path = 'http://cdr.isols.tech';
+  // private path = this.;
+
+
 
   public request(
     method: 'post' | 'get' | 'put' | 'delete',
@@ -71,7 +73,7 @@ export class ApiService {
 
   private getPath() {
     if (environment.production) {
-      return this.path;
+      return window.location.origin;
     }
     return 'http://localhost:3000';
   }
