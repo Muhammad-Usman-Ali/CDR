@@ -113,9 +113,9 @@ UserModel.setPassword(testUser3, 'bbbBBB');
 var force = true;
 
 
-// if (process.env.NODE_ENV === 'production') {
-//   force = false;
-// }
+if (process.env.NODE_ENV === 'production') {
+  force = false;
+}
 
 sequelize.sync({alter: true, force: force})
   .then(async () => {
