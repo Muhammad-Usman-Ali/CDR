@@ -9,19 +9,14 @@ export class BasicService {
   private titleSubject = new Subject<any>();
   title$ = this.titleSubject.asObservable();
 
-  private path = 'http://cdr.isols.tech';
+  // private path = 'http://cdr.isols.tech';
 
   constructor() { }
 
-  // changeTitle(_title): void {
-  //   // console.log('=====>>>> from base service changeTitle()');
-  //   if (_title) {
-  //     this.titleSubject.next(_title);
-  //   }
-  // }
+
   getPath() {
     if (environment.production) {
-      return this.path;
+      return window.location.origin;
     }
     return 'http://localhost:3000';
   }
