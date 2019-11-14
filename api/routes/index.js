@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('express-jwt');
 var auth = jwt({
-  // secret: process.env.NODE_ENV === 'production' ? process.env.PROD_MY_SECRET :'MY_SECRET'
-  secret: 'MY_SECRET'
+  secret: process.env.NODE_ENV === 'production' ? process.env.PROD_MY_SECRET :'MY_SECRET'
+  // secret: 'MY_SECRET'
 });
 
 var ctrlUser = require('../controllers/usersController');
