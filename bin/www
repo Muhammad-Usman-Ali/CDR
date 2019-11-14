@@ -13,16 +13,12 @@ var http = require('http');
 
 
  
-if (process.env.NODE_ENV != 'production') {
+
   var port = normalizePort(process.env.PORT || '3000');
   app.set('port', port);
   
   
   setTimeout(() => {
-    console.log('port = ', port);
-    
- 
-  }, 5000);
   /**
    * Create HTTP server.
    */
@@ -42,7 +38,7 @@ if (process.env.NODE_ENV != 'production') {
    * Normalize a port into a number, string, or false.
    */
   
-}
+
 
 
 

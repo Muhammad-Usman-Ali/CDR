@@ -65,15 +65,15 @@ app.use(/^\/(?!api).*/, function(req, res, next) {
   res.sendFile('/dist/index.html', { root: __dirname });
 });
 
-if (process.env.NODE_ENV == 'production') {
+// if (process.env.NODE_ENV == 'production') {
 
   
-  var server = http.createServer(app);
+//   var server = http.createServer(app);
 
-  server.listen('3000', '0.0.0.0', function() {
-    console.log('Listening to port:  ' + 80);
-  });
-}
+//   server.listen('3000', '0.0.0.0', function() {
+//     console.log('Listening to port:  ' + 80);
+//   });
+// }
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
