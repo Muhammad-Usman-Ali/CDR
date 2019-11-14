@@ -13,6 +13,7 @@ import { UsersApiService } from 'src/app/shared/services/api/users-api.service';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime, map } from 'rxjs/operators';
 import { User } from 'src/app/shared/interfaces';
+import { isLoweredSymbol } from '@angular/compiler';
 
 
 @Component({
@@ -226,6 +227,7 @@ export class UserComponent implements OnInit, OnDestroy {
     //   userObject.userName = 'ADMIN';
     //   userObject.isAdmin = true;
     // }
+
     console.log(this.userForm.value);
 
     this.subscription = this.usersApiService.editUser(this.userForm.value, _id)
