@@ -30,10 +30,13 @@ settings.port = '3306';
 
 // simshield dbName, simshieldDB username, rahmat password
 if (process.env.NODE_ENV === 'production') {
-  dbName = process.env.PROD_DB_NAME;
-  userName = process.env.PROD_USER_NAME;
-  dbPassword = process.env.PROD_DB_PASSWORD;
+  // dbName = process.env.PROD_DB_NAME;
+  // userName = process.env.PROD_USER_NAME;
+  // dbPassword = process.env.PROD_DB_PASSWORD;
 
+  dbName = '	c0cdr_db';
+  userName = 'c0cdr_user';
+  dbPassword = 'WP8OPnxkNDZAQq7yqC9DeVBo';
   console.log(dbName, userName, dbPassword, process.env.PROD_MY_SECRET);
 }
 

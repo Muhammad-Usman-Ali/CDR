@@ -44,8 +44,8 @@ module.exports = (sequelize, type) => {
       name: user.name,
       isAdmin: user.isAdmin,
       exp: parseInt(expiry.getTime()/ 1000),
-    }, process.env.NODE_ENV === 'production' ? process.env.PROD_MY_SECRET :'MY_SECRET');
-    // }, 'MY_SECRET');
+    // }, process.env.NODE_ENV === 'production' ? process.env.PROD_MY_SECRET :'MY_SECRET');
+    }, 'yqZbdwYjLzBpMkYtOf671Eub');
   };
 
 
