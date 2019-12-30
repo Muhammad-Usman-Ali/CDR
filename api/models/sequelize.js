@@ -9,8 +9,8 @@ var Prefix = require('./prefix');
 
 // Connection string to the database
 var dbName = 'cdrdb';
-var userName = 'cdruser';
-var dbPassword = 'x1b3503sazdf1o';
+var userName = 'root';
+var dbPassword = '';
 
 var host = 'localhost';
 var dialect = 'mysql';
